@@ -7,8 +7,10 @@ class FeatureList extends React.Component {
     const list = Object.keys(this.props.features).map(key => 
       <FeatureItem 
         features={this.props.features} 
+        selected={this.props.itemsSelected}
         key={key}
         name={key}
+        onSelect={this.props.handleUpdateSummary}
       />
     );
     return (
@@ -23,7 +25,9 @@ class FeatureList extends React.Component {
 }
 
 FeatureList.defaultProps = {
-  features: []
+  features: {},
+  itemsSelected:{},
+  selectedItems:{},
 }
 
 export default FeatureList;

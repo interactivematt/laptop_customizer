@@ -12,14 +12,15 @@ const USCurrencyFormat = new Intl.NumberFormat('en-US', {
 
 class SummaryList extends React.Component{
   render() {
-    const list = Object.keys(this.props.features).map(key => 
+    const list = Object.keys(this.props.itemsSelected).map(key => 
       <SummaryItem
-        features={this.props.features} 
+        itemsSelected = {this.props.itemsSelected} 
         key={key}
         name={key}
       />
     );
-    
+    const total = Object.keys(this.props.itemsSelected)
+        .reduce((acc, curr) => acc + this.props.itemsSelected[curr].cost, 0);
     return (
       <section className="main__summary">
         <h2>Your cart</h2>
@@ -27,7 +28,7 @@ class SummaryList extends React.Component{
         <div className="summary__total">
           <div className="summary__total__label">Total</div>
           <div className="summary__total__value">
-            {USCurrencyFormat.format()}
+            {USCurrencyFormat.format(total)}
           </div>
         </div>
       </section>
