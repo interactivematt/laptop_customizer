@@ -1,13 +1,24 @@
 import React, { Component } from 'react';
 
-class Title extends Component {
+// This object will allow us to
+// easily convert numbers into US dollar values
+const USCurrencyFormat = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD'
+});
+
+class SummaryItem extends Component {
   render(){
     return(
-      <header>
-          <h1>ELF Computing | Laptops</h1>
-      </header>
+      <div className="summary__option" key={this.props.name}>
+        <div className="summary__option__label"> {this.props.name}  </div>
+        <div className="summary__option__value"> {this.props.selected[this.props.name].name} </div>
+        <div className="summary__option__cost">
+          {USCurrencyFormat.format(this.props.selected[this.props.name].cost)}
+        </div>
+      </div>
     )
   }
 }
 
-export default Title
+export default SummaryItem

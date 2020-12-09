@@ -8,28 +8,28 @@ const USCurrencyFormat = new Intl.NumberFormat('en-US', {
   currency: 'USD'
 });
 
-
 class FeatureItem extends Component {
+
   render(){
     const feature = this.props.name
     const idx = 'idx'
     const featureHash = feature + '-' + idx;
-    const selected = this.props.selected
-    console.log(feature)
-
-    const options = this.props.features[feature].map((item, index) => {
-      // const selectedClass = item.name === selected[this.props.name].name ? 'feature__selected' : '';
-      //const featureClass = 'feature__option ' + selectedClass;
+    const { selected } = this.props;
+    
+    const options = this.props.features[feature].map(item => {
+      const selectedClass = item.name === selected[this.props.name].name ? 'feature__selected' : '';
+      const featureClass = 'feature__option ' + selectedClass;
       const itemHash = slugify(JSON.stringify(item));
       return (
         <div key={itemHash} className="feature__item">
           <input
             type="radio"
             id={itemHash}
-            className="feature__option"
+            value={itemHash}
+            className={featureClass}
             name={slugify(feature)}
-            // checked={item.name === this.state.selected[feature].name}
-            onChange={e => this.updateFeature(feature, item)}
+            checked={selected[this.props.name].name === item.name}
+            onChange={e => {this.props.updateFeatures(this.props.name, item)} }
           />
           <label htmlFor={itemHash} className="feature__label">
             {item.name} ({USCurrencyFormat.format(item.cost)})
